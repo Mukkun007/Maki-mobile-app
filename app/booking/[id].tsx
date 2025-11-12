@@ -54,7 +54,7 @@ export default function BookingDetailScreen() {
             )}
 
             <View style={{ marginTop: 16, gap: 10 }}>
-              <Button title="Remettre le véhicule (handover)" onPress={() => { /* TODO: flow de remise */ }} />
+              <Button title="Remettre le véhicule (handover)" onPress={() => router.push(`/handover/${id}/photos`)} />
               <Button title="Récupérer le véhicule (return)" onPress={() => { /* TODO: flow de retour */ }} />
             </View>
           </View>
