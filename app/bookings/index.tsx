@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { View, Text, Button, FlatList } from 'react-native';
-import { Link } from 'expo-router';
+import { View, Text, Button, FlatList, TouchableOpacity } from 'react-native';
+import { Link, useRouter } from 'expo-router';
 import { RESERVATIONS } from '../../mocks/reservations';
 
 const toYMD = (d: Date) => {
@@ -11,6 +11,7 @@ const toYMD = (d: Date) => {
 };
 
 export default function BookingsListScreen() {
+  const router = useRouter();
   const today = useMemo(() => toYMD(new Date()), []);
   const todays = useMemo(
     () => RESERVATIONS.filter(r => r.date === today),
@@ -18,8 +19,16 @@ export default function BookingsListScreen() {
   );
 
   return (
-    <View style={{ flex: 1, padding: 16, backgroundColor: '#f6f7fb' }}>
-      <Text style={{ fontSize: 20, fontWeight: '700', marginBottom: 12 }}>Réservations du jour</Text>
+    <View style={{ flex: 1, backgroundColor: '#f6f7fb' }}>
+      {/* Header avec retour */}
+      <View style={{ paddingTop: 16, paddingBottom: 12, paddingHorizontal: 16, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+        <TouchableOpacity onPress={() => router.back()} activeOpacity={0.7} style={{ paddingVertical: 8, paddingRight: 8 }}>
+          <Text style={{ fontSize: 16 }}>← Retour</Text>
+        </TouchableOpacity>
+        <Text style={{ fontSize: 18, fontWeight: '700' }}>Réservations du jour</Text>
+      </View>
+
+      <View style={{ flex: 1, padding: 16 }}>
 
       {todays.length === 0 ? (
         <View style={{ paddingVertical: 24 }}>
@@ -67,6 +76,7 @@ export default function BookingsListScreen() {
           )}
         />
       )}
+      </View>
     </View>
   );
 }
