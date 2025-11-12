@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Alert, KeyboardAvoidingView, Platform, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { getFlow, setChecklist, type HandoverChecklist } from '../../../store/handoverStore';
 
@@ -39,7 +39,9 @@ export default function HandoverChecklistScreen() {
         <Text style={{ fontSize: 18, fontWeight: '700' }}>Remise — Checklist</Text>
       </View>
 
-      <View style={{ flex: 1, padding: 16 }}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={64}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 24 }} keyboardShouldPersistTaps="handled">
         {/* Carburant */}
         <Text style={{ fontWeight: '700', marginBottom: 8 }}>Niveau de carburant</Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
@@ -141,7 +143,9 @@ export default function HandoverChecklistScreen() {
             <Text style={{ color: 'white', fontWeight: '600' }}>Continuer</Text>
           </TouchableOpacity>
         </View>
-      </View>
+          </ScrollView>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </View>
   );
 }
