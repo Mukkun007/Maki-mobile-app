@@ -1,9 +1,14 @@
+export type ReservationStatus = 'a_livrer' | 'a_recuperer' | 'termine';
+
 export type Reservation = {
   id: string;
   date: string; // YYYY-MM-DD (jour de la réservation)
-  time: string; // HH:mm
-  customer: string;
-  vehicle: string;
+  customerName: string;
+  vehicleModel: string;
+  pickupTime: string; // HH:mm
+  returnTime: string; // HH:mm
+  location: string; // lieu de rendez-vous
+  status: ReservationStatus; // à livrer / à récupérer / terminé
 };
 
 // Utilitaire pour obtenir YYYY-MM-DD local
@@ -17,8 +22,35 @@ const toYMD = (d: Date) => {
 const today = toYMD(new Date());
 
 export const RESERVATIONS: Reservation[] = [
-  { id: 'R-1001', date: today, customer: 'John Doe',  vehicle: 'Peugeot 208',  time: '10:00' },
-  { id: 'R-1002', date: today, customer: 'Jane Smith', vehicle: 'Renault Clio', time: '11:30' },
+  {
+    id: 'R-1001',
+    date: today,
+    customerName: 'John Doe',
+    vehicleModel: 'Peugeot 208',
+    pickupTime: '10:00',
+    returnTime: '16:00',
+    location: 'Aéroport CDG - Terminal 2F',
+    status: 'a_livrer',
+  },
+  {
+    id: 'R-1002',
+    date: today,
+    customerName: 'Jane Smith',
+    vehicleModel: 'Renault Clio',
+    pickupTime: '11:30',
+    returnTime: '18:30',
+    location: 'Gare de Lyon - Hall 1',
+    status: 'a_recuperer',
+  },
   // Exemple hors jour courant (ne doit pas s’afficher dans "aujourd’hui")
-  { id: 'R-2001', date: '2099-12-31', customer: 'Future User', vehicle: 'Citroën C3', time: '09:15' },
+  {
+    id: 'R-2001',
+    date: '2099-12-31',
+    customerName: 'Future User',
+    vehicleModel: 'Citroën C3',
+    pickupTime: '09:15',
+    returnTime: '12:00',
+    location: 'Agence Centrale',
+    status: 'termine',
+  },
 ];

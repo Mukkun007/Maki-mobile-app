@@ -47,10 +47,16 @@ export default function BookingsListScreen() {
                 elevation: 2,
               }}
             >
-              <Text style={{ fontSize: 12, color: '#6b7280' }}>{item.id}</Text>
-              <Text style={{ fontSize: 16, fontWeight: '600', marginTop: 4 }}>{item.customer}</Text>
-              <Text style={{ color: '#374151', marginTop: 2 }}>{item.vehicle}</Text>
-              <Text style={{ color: '#2563eb', fontWeight: '600', marginTop: 6 }}>Heure: {item.time}</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Text style={{ fontSize: 12, color: '#6b7280' }}>{item.id}</Text>
+                <StatusBadge status={item.status} />
+              </View>
+              <Text style={{ fontSize: 16, fontWeight: '600', marginTop: 6 }}>{item.customerName}</Text>
+              <Text style={{ color: '#374151', marginTop: 2 }}>{item.vehicleModel}</Text>
+              <Text style={{ color: '#2563eb', fontWeight: '600', marginTop: 6 }}>
+                Remise: {item.pickupTime} • Retour: {item.returnTime}
+              </Text>
+              <Text style={{ color: '#111827', marginTop: 4 }}>Lieu: {item.location}</Text>
 
               <View style={{ marginTop: 10, alignItems: 'flex-start' }}>
                 <Link href={`/booking/${item.id}`} asChild>
@@ -61,6 +67,29 @@ export default function BookingsListScreen() {
           )}
         />
       )}
+    </View>
+  );
+}
+
+type BadgeProps = { status: 'a_livrer' | 'a_recuperer' | 'termine' };
+
+function StatusBadge({ status }: BadgeProps) {
+  const { label, bg, fg } = (() => {
+    switch (status) {
+      case 'a_livrer':
+        return { label: 'À livrer', bg: '#dbeafe', fg: '#1d4ed8' };
+      case 'a_recuperer':
+        return { label: 'À récupérer', bg: '#fef9c3', fg: '#92400e' };
+      case 'termine':
+        return { label: 'Terminé', bg: '#dcfce7', fg: '#166534' };
+      default:
+        return { label: status, bg: '#e5e7eb', fg: '#374151' };
+    }
+  })();
+
+  return (
+    <View style={{ backgroundColor: bg, paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999 }}>
+      <Text style={{ color: fg, fontWeight: '600', fontSize: 12 }}>{label}</Text>
     </View>
   );
 }
