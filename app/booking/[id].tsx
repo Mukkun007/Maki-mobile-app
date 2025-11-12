@@ -44,11 +44,18 @@ export default function BookingDetailScreen() {
             </Text>
             <Text style={{ color: '#111827', marginTop: 4 }}>Lieu: {reservation.location}</Text>
 
+            {reservation.optionsReserved && reservation.optionsReserved.length > 0 && (
+              <View style={{ marginTop: 12 }}>
+                <Text style={{ fontWeight: '600', marginBottom: 6 }}>Options réservées</Text>
+                {reservation.optionsReserved.map((opt, idx) => (
+                  <Text key={idx} style={{ color: '#374151' }}>• {opt}</Text>
+                ))}
+              </View>
+            )}
+
             <View style={{ marginTop: 16, gap: 10 }}>
-              <Button title="Prendre des photos (TODO)" onPress={() => {}} />
-              <Link href="/signature" asChild>
-                <Button title="Signature client" onPress={() => {}} />
-              </Link>
+              <Button title="Remettre le véhicule (handover)" onPress={() => { /* TODO: flow de remise */ }} />
+              <Button title="Récupérer le véhicule (return)" onPress={() => { /* TODO: flow de retour */ }} />
             </View>
           </View>
         )}

@@ -9,6 +9,7 @@ export type Reservation = {
   returnTime: string; // HH:mm
   location: string; // lieu de rendez-vous
   status: ReservationStatus; // à livrer / à récupérer / terminé
+  optionsReserved?: string[]; // options réservées (ex: Siège bébé, GPS, Assurance Plus)
 };
 
 // Utilitaire pour obtenir YYYY-MM-DD local
@@ -31,6 +32,7 @@ export const RESERVATIONS: Reservation[] = [
     returnTime: '16:00',
     location: 'Aéroport CDG - Terminal 2F',
     status: 'a_livrer',
+    optionsReserved: ['Assurance Plus', 'GPS'],
   },
   {
     id: 'R-1002',
@@ -41,6 +43,7 @@ export const RESERVATIONS: Reservation[] = [
     returnTime: '18:30',
     location: 'Gare de Lyon - Hall 1',
     status: 'a_recuperer',
+    optionsReserved: ['Siège bébé'],
   },
   // Exemple hors jour courant (ne doit pas s’afficher dans "aujourd’hui")
   {
@@ -52,5 +55,6 @@ export const RESERVATIONS: Reservation[] = [
     returnTime: '12:00',
     location: 'Agence Centrale',
     status: 'termine',
+    optionsReserved: ['Conducteur additionnel'],
   },
 ];
